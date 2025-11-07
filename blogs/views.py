@@ -20,7 +20,7 @@ def myposts(request):
     """Список всех статей блога"""
     blog_posts = BlogPost.objects.filter(owner=request.user).order_by('-date_added')
     context = {'blog_posts': blog_posts}
-    return render(request, 'blogs/myposts.html', context)
+    return render(request, 'blogs/posts.html', context)
 
 
 def post(request, post_id):
