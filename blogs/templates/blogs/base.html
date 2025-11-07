@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kipishio Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-gray-100 font-sans">
+<header class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-16">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Мой блог на Django</h1>
+        <p class="text-lg md:text-xl">Откройте для себя мир историй, идей и вдохновения.</p>
+    </div>
+</header>
+<nav class="bg-gray-800 py-4 sticky top-0 z-10">
+    <div class="container mx-auto px-4 flex justify-center space-x-6">
+        <a href="{% url 'blogs:index' %}" class="text-white hover:text-purple-300 transition">Домой</a>
+        <a href="{% url 'blogs:posts' %}" class="text-white hover:text-purple-300 transition">Посты</a>
+
+
+        {#        <a href="{% url 'users:register' %}" class="text-white hover:text-purple-300 transition">Регистрация</a>#}
+        {% if user.is_authenticated %}
+            <a href="{% url 'blogs:addpost' %}" class="text-white hover:text-purple-300 transition">Добавить пост</a>
+            <a href="{% url 'blogs:myposts' %}" class="text-white hover:text-purple-300 transition">Мои посты</a>
+            <div class="text-white hover:text-purple-300 transition"> Привет, {{ user.username }} </div>
+            <form method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="text-white hover:text-purple-300 transition">Выйти</button>
+            </form>
+        {% else %}
+            <a href="{% url 'users:register' %}" class="text-white hover:text-purple-300 transition">Регистрация</a>
+            <a href="{% url 'users:login' %}" class="text-white hover:text-purple-300 transition">Войти</a>
+        {% endif %}
+
+    </div>
+</nav>
+<main class="container mx-auto px-4 py-8">
+
+    {% block content %}{% endblock content %}
+
+</main>
+<footer class="bg-gray-800 text-white text-center py-6">
+    <div class="container mx-auto px-4">
+        <p>&copy; 2025 My Vibrant Blog. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-2">
+            <a href="#" class="hover:text-purple-300 transition">Twitter</a>
+            <a href="#" class="hover:text-purple-300 transition">Instagram</a>
+            <a href="#" class="hover:text-purple-300 transition">LinkedIn</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

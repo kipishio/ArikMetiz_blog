@@ -1,0 +1,26 @@
+{% extends "blogs/base.html" %}
+{% load static %}
+
+{% block content %}
+    <section class="posts grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% if blog_posts %}
+            {% for post in blog_posts %}
+                <article class="post-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                    <img src="{% static 'images/placeholder.jpeg' %}" alt="Картинка поста"
+                         class="w-full h-10 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ post }}</h3>
+                        <p class="text-gray-600 mb-4">{{ post.text|truncatewords:10 }}</p>
+                        <a href="{% url 'blogs:post' post.id %}"
+                           class="inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition">
+                            Читать
+                        </a>
+                        <p class="text-gray-600 mb-4">Опубликовано: {{ post.date_added|date:"d F Y, H:i" }}</p>
+                    </div>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>У вас нет опубликованных постов</p>
+        {% endif %}
+    </section>
+{% endblock content %}
