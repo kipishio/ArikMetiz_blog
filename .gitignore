@@ -1,8 +1,19 @@
+# PyCharm
 .idea/
+
+# Virtual environment
+blogenv/
+.env
 .venv/
+
+# Python cache
 __pycache__/
 *.pyc
+
 *.log
 *.git
-db.sqlite3
-ll_env
+
+# Database
+*.sqlite3
+
+
